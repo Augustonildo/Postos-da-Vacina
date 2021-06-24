@@ -1,0 +1,1 @@
+# Este programa deverá criar "casamentos" entre postos de saúde disponibilizando vacinas e pessoas que deverão ser vacinadas, definindo em qual posto cada um dos cidadãos deverá se dirigir para se vacinar.
