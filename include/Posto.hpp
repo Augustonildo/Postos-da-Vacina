@@ -1,7 +1,4 @@
 #include "Pessoa.hpp"
-#include <iostream>
-
-using namespace std;
 
 class Posto
 {
@@ -15,6 +12,7 @@ public:
     void DesalocarPessoaParaVacinacao(int idPessoa);
     void ListarPessoasAlocadas();
     int GetCapacidade();
+    void SetListaPrioridade(int *listaPrioridade);
 
 private:
     int capacidade;
@@ -22,4 +20,6 @@ private:
     int *idPessoasAlocadas;
     int localizacaoX;
     int localizacaoY;
+    int *listaPrioridade;
+    int RetornaPosicaoPessoa(int idPessoa);
 };

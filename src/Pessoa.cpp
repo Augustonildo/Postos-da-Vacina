@@ -1,26 +1,29 @@
 #include "Pessoa.hpp"
-#include <stdlib.h>
+#include <iostream>
+
+using namespace std;
 
 Pessoa::Pessoa() {}
 
-Pessoa::Pessoa(int id, int idade, int localizacaoX, int localizacaoY, int tamanhoListaPostoProximo)
+Pessoa::Pessoa(int id, int idade, int localizacaoX, int localizacaoY)
 {
     this->id = id;
     this->idade = idade;
     this->localizacaoX = localizacaoX;
     this->localizacaoY = localizacaoY;
     this->idPostoAlocado = -1;
-    this->tamanhoListaPostoProximo = tamanhoListaPostoProximo;
 }
 
 Pessoa::~Pessoa() {}
 
 int Pessoa::RetornaPosicaoPosto(int idPosto)
 {
-    for (int i = 0; i < tamanhoListaPostoProximo; i++)
+    int i = 0;
+    while (true)
     {
         if (listaPostosProximos[i] == idPosto)
             return i;
+        i++;
     }
     return -1;
 }
@@ -29,7 +32,6 @@ bool Pessoa::PreferePostoNovoAoAlocado(int idPosto)
 {
     if (RetornaPosicaoPosto(idPosto) < RetornaPosicaoPosto(idPostoAlocado))
     {
-        idPostoAlocado = idPosto;
         return true;
     }
     return false;
@@ -60,7 +62,11 @@ void Pessoa::SetIdPostoAlocado(int idPosto)
     this->idPostoAlocado = idPosto;
 }
 
-void Pessoa::SetListaPostosProximos(int *listaPostosProximos)
+void Pessoa::SetListaPostosProximos(int *listaPostosProximos, int tamanho)
 {
-    this->listaPostosProximos = listaPostosProximos;
+    this->listaPostosProximos = (int *)malloc(tamanho * sizeof(int));
+    for (int i = 0; i < tamanho; i++)
+    {
+        this->listaPostosProximos[i] = listaPostosProximos[i];
+    }
 }

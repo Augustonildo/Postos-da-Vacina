@@ -1,5 +1,6 @@
 #include "Posto.hpp"
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -33,7 +34,7 @@ int main(int argc, char *argv[])
     {
         int idade, localizacaoX, localizacaoY;
         cin >> idade >> localizacaoX >> localizacaoY;
-        pessoas[i] = Pessoa(i, idade, localizacaoX, localizacaoY, numeroPostos);
+        pessoas[i] = Pessoa(i, idade, localizacaoX, localizacaoY);
 
         Distancia_Posto_Pessoa dist[numeroPostos];
         for (int j = 0; j < numeroPostos; j++)
@@ -46,35 +47,55 @@ int main(int argc, char *argv[])
         int listaIdPostosOrdenado[numeroPostos];
         for (int j = 0; j < numeroPostos; j++)
         {
-            pessoas[i].SetListaPostosProximos(listaIdPostosOrdenado);
+            listaIdPostosOrdenado[j] = dist[j].idPosto;
         }
+        pessoas[i].SetListaPostosProximos(listaIdPostosOrdenado, numeroPostos);
     }
 
     //Ordenando lista pessoas em ordem decrescente.
     //Essa lista também funcionará como lista de prioridade geral
     sort(pessoas, pessoas + numeroPessoas, ordenarMaisVelho);
 
+    //Cria lista de prioridades somente com id de pessoa
+    int idPessoasPrioridade[numeroPessoas];
+    for (int i = 0; i < numeroPessoas; i++)
+    {
+        idPessoasPrioridade[i] = pessoas[i].id;
+    }
+
+    //Informa lista de prioridade para cada um dos postos
+    for (int i = 0; i < numeroPostos; i++)
+    {
+        postos[i].SetListaPrioridade(idPessoasPrioridade);
+    }
+
     int numeroAlocados = 0;
     while (numeroAlocados < numeroPessoas && numeroAlocados < capacidadeTotalPostos)
     {
-        for (int i = 0; i < numeroPostos; i++)
+        for (int j = 0; j < numeroPessoas; j++)
         {
-            for (int j = 0; j < numeroPessoas; j++)
+            for (int i = 0; i < numeroPostos; i++)
             {
                 int idPostoAlocadoAtual = pessoas[j].GetIdPostoAlocado();
                 if (idPostoAlocadoAtual == -1)
                 {
                     if (postos[i].AlocarPessoaParaVacinacao(pessoas[j].id))
                     {
+                        //TODO: REMOVER INSTRUÇÃO DE TESTE
+                        cout << "Por ausência de alocação " << endl;
                         pessoas[j].SetIdPostoAlocado(postos[i].id);
                         numeroAlocados++;
                     }
                 }
                 else if (pessoas[j].PreferePostoNovoAoAlocado(postos[i].id))
                 {
-                    postos[idPostoAlocadoAtual].DesalocarPessoaParaVacinacao(pessoas[j].id);
-                    postos[i].AlocarPessoaParaVacinacao(pessoas[j].id);
-                    pessoas[j].SetIdPostoAlocado(postos[i].id);
+                    if (postos[i].AlocarPessoaParaVacinacao(pessoas[j].id))
+                    {
+                        //TODO: REMOVER INSTRUÇÃO DE TESTE
+                        cout << "Por preferência de novo posto " << endl;
+                        postos[idPostoAlocadoAtual].DesalocarPessoaParaVacinacao(pessoas[j].id);
+                        pessoas[j].SetIdPostoAlocado(postos[i].id);
+                    }
                 }
             }
         }
