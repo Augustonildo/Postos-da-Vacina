@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
             dist[j].idPosto = postos[j].id;
         }
 
-        sort(dist, dist + numeroPostos, ordenarMaisProximo);
+        stable_sort(dist, dist + numeroPostos, ordenarMaisProximo);
         int listaIdPostosOrdenado[numeroPostos];
         for (int j = 0; j < numeroPostos; j++)
         {
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 
     //Ordenando lista pessoas em ordem decrescente.
     //Essa lista também funcionará como lista de prioridade geral
-    sort(pessoas, pessoas + numeroPessoas, ordenarMaisVelho);
+    stable_sort(pessoas, pessoas + numeroPessoas, ordenarMaisVelho);
 
     //Cria lista de prioridades somente com id de pessoa
     int idPessoasPrioridade[numeroPessoas];
@@ -81,8 +81,6 @@ int main(int argc, char *argv[])
                 {
                     if (postos[i].AlocarPessoaParaVacinacao(pessoas[j].id))
                     {
-                        //TODO: REMOVER INSTRUÇÃO DE TESTE
-                        cout << "Por ausência de alocação " << endl;
                         pessoas[j].SetIdPostoAlocado(postos[i].id);
                         numeroAlocados++;
                     }
@@ -91,8 +89,6 @@ int main(int argc, char *argv[])
                 {
                     if (postos[i].AlocarPessoaParaVacinacao(pessoas[j].id))
                     {
-                        //TODO: REMOVER INSTRUÇÃO DE TESTE
-                        cout << "Por preferência de novo posto " << endl;
                         postos[idPostoAlocadoAtual].DesalocarPessoaParaVacinacao(pessoas[j].id);
                         pessoas[j].SetIdPostoAlocado(postos[i].id);
                     }

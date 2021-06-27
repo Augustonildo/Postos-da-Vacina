@@ -64,8 +64,6 @@ bool Posto::AlocarPessoaParaVacinacao(int idPessoa)
     idPessoasAlocadas[numeroPessoasAlocadas] = idPessoa;
     numeroPessoasAlocadas++;
 
-    //TODO: REMOVER INSTRUÇÃO DE TESTE
-    cout << "Alocada pessoa " << idPessoa << " no posto " << this->id << endl;
     return true;
 }
 
@@ -87,8 +85,6 @@ void Posto::DesalocarPessoaParaVacinacao(int idPessoa)
     }
 
     numeroPessoasAlocadas--;
-    //TODO: REMOVER INSTRUÇÃO DE TESTE
-    cout << "Desalocada pessoa " << idPessoa << " do posto " << this->id << endl;
 }
 
 void Posto::ListarPessoasAlocadas()
