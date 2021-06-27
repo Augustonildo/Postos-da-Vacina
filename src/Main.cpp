@@ -6,7 +6,7 @@ using namespace std;
 
 struct Distancia_Posto_Pessoa
 {
-    int distancia;
+    float distancia;
     int idPosto;
 } typedef Distancia_Posto_Pessoa;
 
@@ -103,7 +103,6 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < numeroPostos; i++)
     {
-        cout << postos[i].id << endl;
         postos[i].ListarPessoasAlocadas();
     }
     return 0;

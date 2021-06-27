@@ -93,6 +93,9 @@ void Posto::DesalocarPessoaParaVacinacao(int idPessoa)
 
 void Posto::ListarPessoasAlocadas()
 {
+    if (numeroPessoasAlocadas == 0)
+        return;
+    cout << id << endl;
     for (int i = 0; i < numeroPessoasAlocadas; i++)
     {
         cout << idPessoasAlocadas[i] << " ";
